@@ -5,15 +5,19 @@
 }
 body{
     font-family: Franklin Gothic Medium, sans-serif;
-    background-color: rgb(124, 103, 243) ;
+    background-color: rgb(124, 103, 243);
 }
 img{
+    display: block;
     max-width: 100%;
     height: auto;
+    margin: 20px auto;
     display: block;
 }
-.text-center{
+.center{
     text-align: center;
+    margin: 20px auto;
+
 }
 .container-cabecalho{
     text-align: center;
@@ -60,8 +64,12 @@ margin-top-40{
 .conteiner-servicos-contatos .botoes-servico-contatos{
     padding: 60px;
     text-align: center;
-}
 
+}
+.conteiner-servicos-contatos h1{
+    margin: 20px auto;
+    text-align: center;
+}
 .botoes-servico-contatos a{
     display: block;
     max-width: 200px;
