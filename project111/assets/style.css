@@ -1,0 +1,70 @@
+:root{
+    --cor-fundo-pg:#582727;
+    --cor-texto: #f0bbbb;
+    --cor-titulo: #000000;
+    --cor-texto-titulo: #850000;
+    --cor-fundo-cabecalho: #3d1010;
+    --cor-label: #f31000;
+
+}
+body{
+    background-color: var(--cor-fundo-pg);
+}
+.container-cabecalho{
+    background-color: var(--cor-fundo-cabecalho);
+    color: var(--cor-texto);
+    
+    text-align: center;
+}
+.container-cabecalho h1{
+    padding: 20px;
+    color: var(--cor-texto-titulo);
+}
+.container-cabecalho a{
+    text-decoration: none;
+}
+.titulo{
+    color: var(--cor-titulo);
+}
+.botoes-nav {
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    gap: 40px;
+    font-size: 15px;
+    
+}
+.botoes-nav .btn-sobre-mim{
+    padding: 20px;
+    background-color: var(--cor-label);
+    color: var(--cor-texto-titulo);
+    border: 4px solid var(--cor-texto-titulo);
+    border-radius: 20px;
+}
+.botoes-nav .btn-habilidades{
+    padding: 20px;
+    background-color: var(--cor-label);
+    color: var(--cor-texto-titulo);
+    border: 4px solid var(--cor-texto-titulo);
+    border-radius: 20px;
+}
+.botoes-nav .btn-contatos{
+    padding: 20px;
+    background-color: var(--cor-label);
+    color: var(--cor-texto-titulo);
+    border: 4px solid var(--cor-texto-titulo);
+    border-radius: 20px;
+}
+.container-main{
+    color: var(--cor-texto);
+    text-align: center; 
+}
+.lista{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+    list-style-position: inside;
+    padding-left: 0;
+    margin: 0;
+}
