@@ -13,7 +13,7 @@ body{
 .container-cabecalho{
     background-color: var(--cor-fundo-cabecalho);
     color: var(--cor-texto);
-    
+    margin: 0;
     text-align: center;
 }
 .container-cabecalho h1{
