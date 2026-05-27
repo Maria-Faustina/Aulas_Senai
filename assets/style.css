@@ -1,0 +1,40 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.container-cabecalho{
+    background: deepskyblue;
+}
+.navigation, a {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+  text-decoration: none;
+  padding: 5px;
+  list-style: none;
+  gap: 10px;
+  color: white;
+ 
+}
+.banner{
+    display: flex;
+    justify-content: center;
+    background-color: darkslateblue;
+    margin: 20px;
+    text-align: center;
+    padding: 144px 350px;
+    border-radius: 10px;
+}
+.content-section{
+    display: flex;
+    justify-content: center;
+    margin: 30px;
+    gap: 16px
+}
+.artigo{
+    text-align: left;
+    padding: 20px;
+    background-color: rgb(250, 239, 224);
+    border-radius: 10px;
+}
