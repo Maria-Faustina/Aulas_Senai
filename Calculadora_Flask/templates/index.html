@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +7,12 @@
 </head>
 <body>
     <h1>Calculadora Flask</h1>
-    <forms action="/processar" method="POST">
+    <form action="/form" method="POST">
         <div class="label-numb">
-            <label for="number">Numero:</label>
+            <label >Numero:</label>
             <input type="number" name="n1" required>
             <br>
-            <label for="number">Numero:</label>
+            <label  >Numero:</label>
             <input type="number" name="n2" required>
         </div>
         <div class="btn-operadores">
@@ -20,11 +20,12 @@
             <button type="submit" name="operacao" value="menos">Subtração</button>
             <br>
             <button type="submit" name="operacao" value="divisao">Divisão</button>
-            <button type="submit" name="operacao" value="Vezes">Multiplicação</button>
+            <button type="submit" name="operacao" value="vezes">Multiplicação</button>
         </div>
-    </forms>
-    {% if resultado is not none %}
-        <h3> O resultado é : {{ resultado}}</h3>
-    {%endif%}
+    </form>
+      <div class="Resultado">
+        <p>Resultado: {{ resultado }}</p>
+    </div>
+
 </body>
 </html>
