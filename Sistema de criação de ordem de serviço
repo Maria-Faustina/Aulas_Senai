@@ -1,0 +1,109 @@
+#oficina Celsao
+
+oficina_geral = []
+global revisao_completa_veiculo
+def cadatrar_order_servico():
+    print("\n NOVA ORDEM DE SERVIÇO")
+    #dados reais
+
+    cliente = input("Nome do Cliente: ")
+    modelo_veiculo = input("Modelo do veiculo: ")
+ 
+    while True:
+            try:
+                ano_veiculo = int(input("Ano do veiculo (AAAA): "))
+                if ano_veiculo < 1900 or ano_veiculo > 2026:
+                    print("Digite um ano valido")
+                    continue
+                break
+            except ValueError:
+                print("ERRO: o ano deve ser um numero inteiro!")
+
+    while True:
+        try:
+            quilometragem = int(input("Quilometrage atual: "))
+            if quilometragem < 0:
+                print("Quilometragem não poder ser negativa")
+                continue
+            break
+        except ValueError:
+                print("Quilometragem deve ser um numero inteiro")
+
+    if quilometragem > 10000 or ano_veiculo < 2015:
+                print("\n ALERTA DO SISTEMA: veiculo necessita de revisão preventiva!")
+                revisao_completa = True
+    else:
+          print("\n STATUS: Mauntenção de rotina.")
+          revisao_completa = False
+    lista_pecas = []
+    total_orcamento = 0.00
+
+    print("\n--- Lançamento de peças ---")
+
+    while True:
+        peca = input("Nome da peça/serviço (ou 'fim' para encerrar): ").strip().lower()
+        if peca.lower() == 'fim':
+            break #para completamente
+        try:
+            preco = float(input(f" preco de '{peca}: R$ "))
+            if preco < 0:
+                print("NÂO Pode ser negativo")
+                continue
+            lista_pecas.append(peca)
+            total_orcamento += preco
+        except ValueError:
+            print("Preço invalido! Item negado")
+#estruturação de dado(dicionario)
+    ordem_servico = {
+        "cliente": cliente,
+        "veiculo": modelo_veiculo,
+        "ano": ano_veiculo,
+        "KM": quilometragem,
+        "revisao": revisao_completa,
+        "itens": lista_pecas,
+        "total": total_orcamento,
+        "status": "EM ABERTO"
+
+    }
+
+#conexão com o dicionario da o.s na lista global(BD)
+
+    oficina_geral.append(ordem_servico)
+    print(f"\n ORDEM DE SERVIÇO de {cliente} gerada com sucesso")
+
+#essa função varre a lista global e exibe os dados estruturados de cada dicionario
+
+def lista_todas_ordens():
+    print("\n"+ 30 * "=")
+    print(" NOTA FISCAL")
+
+    if not oficina_geral:
+        print("Nenhum veículos em manutenção no momento.")
+        return
+    for indice, ordem in enumerate(oficina_geral):
+        print(f"\n #OS: {indice} | Cliente {ordem['cliente']} | Carros: {ordem['veiculo']}")
+        print(f"Ano: {ordem['ano']} | Km: {ordem['KM']}")
+        print(f"Revisão Critíca: {'SIM' if ordem['revisao']  else 'NÃO'}")
+        print(f"Itens trocados: {','.join(ordem['itens']) if ordem['itens'] else 'nenhum item lançado'}")
+        print(f"Total: R$ {ordem['total']:.2f}")
+        print(f"Status {ordem['status']}")
+        print("\n"+ 30*"-")
+
+#criação de menu
+
+while True:
+    print("\n== SISTEMA OFICINA INTELIGENTE ===")
+    print("1 cadstrar nova ordem de serviço")
+    print("2 listar ordem de serviço relatorio")
+    print("3 Sair do serviço")
+
+    opcao = input("Escolha uma opção: ")
+    if opcao == '1':
+        cadatrar_order_servico()
+    elif opcao == '2':
+        lista_todas_ordens()
+    elif opcao == '3':
+        print(" Fechando Sistema...")
+        break
+    else:
+         print("opção invalida")
