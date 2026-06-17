@@ -26,7 +26,7 @@ limpar()
 janela.tk.Tk()
 janela.title(" Calculadora Moveis")
 janela.geometry("350x120")
-janela.reziable
+janela.reziable(True,True)
 
         #diplay
 
@@ -52,7 +52,7 @@ for botao in botoes:
     if botao =="=":
                 btn = tk.Button(janela, text="botoes",font=(""), bg=cor_operador, fg="white", height=2, command=calcular, )
                 btn.grid(column=col, row=row, columnspan=2, padx=3, sticky="nsew" )
-                coll +=2
+                col +=2
     elif botao  in "÷x-+":
                 #operadore matematicos
                 btn = tk.Button(janela, text=botao, font=("bold"),fg="white",
@@ -60,14 +60,14 @@ for botao in botoes:
                 btn.grid(column=col, row=row, columnspan=2, padx=3, sticky="nsew", pady=3)
                 col =+1
     elif botao in 'c±%':
-            btn = tk.Button(janela, text=botao, font=("bold"),fg="white",
-            bg=cor_numero, command=lambda v=botao: adicionar(v))
-            btn.grid(olumn=col, row=row, columnspan=2, padx=3, sticky="nsew", columnspan=2, pady=3)
-            col =+1
+                btn = tk.Button(janela, text=botao, font=("bold"),fg="white",
+                bg=cor_numero, command=lambda v=botao: adicionar(v))
+                btn.grid(column=col, row=row, columnspan=2, padx=3, sticky="nsew", pady=3)
+                col =+1
     else:
                 btn = tk.Button(janela, text=botao, font=("bold"),fg="white",
                 bg=cor_numero, command=lambda v=botao: adicionar(v))
-                btn.grid(olumn=col, row=row, columnspan=2, padx=3, sticky="nsew", columnspan=2, pady=3)
+                btn.grid(column=col, row=row, columnspan=2, padx=3, sticky="nsew", pady=3)
                 col =+1
     if col > 3:
            col = 0
