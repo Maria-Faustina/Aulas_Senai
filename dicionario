@@ -1,0 +1,17 @@
+#def exibir_info(**dados):
+    #for chave, valor in dados.items():
+        #print(f"{chave}: {valor}")
+
+#exibir_info(nome="lula", idade="78", cidade="SP",partido="Bolonaro")
+
+#funcionario = { "setor: Juriico", "Nome: Adilson"," Salário: 1520.00"}
+def cadastrar_funcionario():
+    setor = input(" Setor: (ex: Juridico): ")
+    nome = (input("Seu nome: "))
+    salario = float(input("Salario (ex: 1420.00) R$: "))
+    cargo = input("Cargo (Gerente/analista):")
+    bonus = float(input("Bônus (ex; 200.00) R$: "))
+
+    linha = f"{setor}, {nome},{salario: .2f},{cargo},{bonus: .2f}"
+
+    with open("funcionarios.txt", " a")
