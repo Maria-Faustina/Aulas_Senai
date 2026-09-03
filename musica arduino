@@ -1,0 +1,49 @@
+#define buzzer 5
+//frequencia notas
+#define note_c4 262
+#define note_d4 294
+#define note_e4 330
+#define note_f4 349
+#define note_g4 392
+#define note_a4 440
+#define note_b4 494
+#define note_c4 523
+#define note_e5 1.318
+//duracao
+#define q 400 //seminima
+#define h 800 //minima
+#define e 200 //colcheia
+#define w 1600 //semibreve
+//funcao para tocar uma nota
+void playNote(int frequency, int duration){
+  if (frequency > 0){
+    tone(buzzer,frequency, duration);
+  }
+  delay(duration + 30);
+}
+
+void setup(){
+  Serial.begin(9600);
+  pinMode(buzzer, OUTPUT);
+}
+
+void loop(){
+
+  playNote(note_a4, h);
+  playNote(note_e4, q;
+  playNote(note_a4, h);
+  playNote(note_e4, q;
+  playNote(note_b4, h);
+  playNote(note_e4, q;
+  playNote(note_b4, h);
+  playNote(note_e4, q;
+  playNote(note_c4, h);
+  playNote(note_e4, q;
+  playNote(note_c4, h);
+  playNote(note_e5, q;
+
+
+  delay(2000);
+ 
+
+}
