@@ -1,0 +1,92 @@
+CREATE DATABASE IF NOT EXISTS academia_SL;
+-- seleciona o banco
+USE academia_SL;
+
+CREATE TABLE IF NOT EXISTS usuario(
+	id BIGINT primary key auto_increment,
+    nome VARCHAR(150) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    senha_hash VARCHAR(150) NOT NULL,
+    telefone VARCHAR(30),
+    ativo BOOLEAN DEFAULT TRUE,
+    ultimo_login DATETIME,
+    criado_em TIMESTAMP,
+    atualizado_em TIMESTAMP
+);
+CREATE TABLE IF NOT EXISTS personal(
+	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    cref VARCHAR(50) NULL,
+    especialidade VARCHAR(150) NULL,
+    biografia VARCHAR(250) NULL,
+    link_rede_social VARCHAR(150) NULL,
+    criado_em TIMESTAMP,
+    atualizado_em TIMESTAMP,
+    CONSTRAINT fk_personal_usuario
+	FOREIGN KEY (usuario_id) references usuario(id)
+);
+CREATE TABLE IF NOT EXISTS aluno(
+	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    CONSTRAINT fk_aluno_usuario FOREIGN KEY (usuario_id) references usuario(id),
+    CONSTRAINT fk_aluno_personal FOREIGN KEY (usuario_id) references usuario(id),
+    data_nascimento DATE NOT NULL,
+    sexo VARCHAR(8) CHECK(SEXO IN('MASCULINO','FEMININO','OUTRO')) NOT NULL,
+    objetivo_principal VARCHAR(200) NULL,
+    observacao VARCHAR(256) NULL,
+    data_inicio DATE NULL,
+    ativo BOOLEAN DEFAULT TRUE,
+	criado_em TIMESTAMP,
+    atualizado_em TIMESTAMP
+    );
+CREATE TABLE IF NOT EXISTS treino(
+	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    CONSTRAINT fk_treino_aluno FOREIGN KEY(aluno_id) references usuario(id),
+    CONSTRAINT fk_treino_personal FOREIGN KEY(personal_id) references personal(id),
+    nome_treino VARCHAR(150) NOT NULL,
+    descricao VARCHAR(250) NULL,
+    objetivo VARCHAR(200) NULL,
+    data_inicio DATE,
+    data_fim DATE,
+    ativo BOOLEAN DEFAULT TRUE,
+	criado_em TIMESTAMP,
+    atualizado_em TIMESTAMP
+);
+CREATE TABLE IF NOT EXISTS grupo_muscular(
+	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    nome_grupo VARCHAR(50) UNIQUE
+);
+CREATE TABLE IF NOT EXISTS equipamento(
+	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    nome_equipamento VARCHAR(50) UNIQUE
+);
+CREATE TABLE IF NOT EXISTS execicio(
+	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    CONSTRAINT fk_exercicio_grupoMuscular FOREIGN KEY(grupo_muscular_id) references exercicio(id),
+	CONSTRAINT fk_exercicio_equipamento FOREIGN KEY(equipamento_id) references equipamento(id),
+    nome_exercicio VARCHAR(150) NOT NULL,
+    CONSTRAINT criado_por FOREIGN Key (personal_id)references personal(id) NULL,
+    instrucao VARCHAR(50),
+    ativo BOOLEAN DEFAULT TRUE,
+    criado_em TIMESTAMP,
+    atualizado_em TIMESTAMP
+);
+CREATE TABLE IF NOT EXISTS treino_dia(
+	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+	CONSTRAINT fk_treinoDia_treino FOREIGN KEY (treino_id) references treino(id),
+    CONSTRAINT fk_treinoDia_exercicio FOREIGN KEY (exercicio_id) references exercicio(id),
+    ordem_treino INT NOT NULL,
+    intervalo INT NULL,
+    criado_em TIMESTAMP,
+    atualizado_em TIMESTAMP
+    
+);
+CREATE TABLE IF NOT EXISTS treino_exercicio(
+	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    CONSTRAINT fk_treinoExercicio_treinoDia FOREIGN KEY (treino_dia_id) references treino_dia(id),
+    CONSTRAINT fk_treinoExercicio_exercicio FOREIGN KEY (exercicio_id) references exercicio(id),
+    ordem INT NOT NULL,
+    repeticao INT NOT NULL,
+    repeticao_max INT NOT NULL,
+    observacao VARCHAR(250) NULL,
+    criado_em TIMESTAMP,
+    atualizado_em TIMESTAMP
+);
