@@ -1,4 +1,5 @@
 CREATE database IF NOT EXISTS loja_FelipeMoveis;
+USE loja_FelipeMoveis;
 
 CREATE TABLE IF NOT EXISTS cliente(
 	id BIGINT PRIMARY KEY AUTO_INCREMENT,
@@ -40,3 +41,4 @@ CREATE TABLE IF NOT EXISTS item_venda(
     preco_pago FLOAT NOT NULL,
     desconto FLOAT NOT NULL
 );
+INSERT  INTO  funcionario (id, nome, cargo_id) VALUE (1,'Carlão',2);
