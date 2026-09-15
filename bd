@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS usuario(
 );
 CREATE TABLE IF NOT EXISTS personal(
 	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    usuario_id BIGINT NOT NULL,
     cref VARCHAR(50) NULL,
     especialidade VARCHAR(150) NULL,
     biografia VARCHAR(250) NULL,
@@ -26,6 +27,7 @@ CREATE TABLE IF NOT EXISTS personal(
 );
 CREATE TABLE IF NOT EXISTS aluno(
 	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    usuario_id BIGINT NOT NULL,
     CONSTRAINT fk_aluno_usuario FOREIGN KEY (usuario_id) references usuario(id),
     CONSTRAINT fk_aluno_personal FOREIGN KEY (usuario_id) references usuario(id),
     data_nascimento DATE NOT NULL,
@@ -39,6 +41,8 @@ CREATE TABLE IF NOT EXISTS aluno(
     );
 CREATE TABLE IF NOT EXISTS treino(
 	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    aluno_id BIGINT NOT NULL,
+    personal_id BIGINT NOT NULL,
     CONSTRAINT fk_treino_aluno FOREIGN KEY(aluno_id) references usuario(id),
     CONSTRAINT fk_treino_personal FOREIGN KEY(personal_id) references personal(id),
     nome_treino VARCHAR(150) NOT NULL,
@@ -58,12 +62,15 @@ CREATE TABLE IF NOT EXISTS equipamento(
 	id BIGINT PRIMARY KEY AUTO_INCREMENT,
     nome_equipamento VARCHAR(50) UNIQUE
 );
-CREATE TABLE IF NOT EXISTS execicio(
+CREATE TABLE IF NOT EXISTS exercicio(
 	id BIGINT PRIMARY KEY AUTO_INCREMENT,
-    CONSTRAINT fk_exercicio_grupoMuscular FOREIGN KEY(grupo_muscular_id) references exercicio(id),
-	CONSTRAINT fk_exercicio_equipamento FOREIGN KEY(equipamento_id) references equipamento(id),
+    grupo_muscular_id BIGINT NOT NULL,
+    equipamento_id BIGINT NOT NULL,
+    personal_id BIGINT NOT NULL,
+    CONSTRAINT fk_exe_grupoMuscular FOREIGN KEY(grupo_muscular_id) references grupo_muscular(id),
+	CONSTRAINT fk_exe_equipamento FOREIGN KEY(equipamento_id) references equipamento(id),
     nome_exercicio VARCHAR(150) NOT NULL,
-    CONSTRAINT criado_por FOREIGN Key (personal_id)references personal(id) NULL,
+    CONSTRAINT exe_criado_por FOREIGN Key (personal_id)references personal(id),
     instrucao VARCHAR(50),
     ativo BOOLEAN DEFAULT TRUE,
     criado_em TIMESTAMP,
@@ -71,6 +78,8 @@ CREATE TABLE IF NOT EXISTS execicio(
 );
 CREATE TABLE IF NOT EXISTS treino_dia(
 	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    treino_id BIGINT NOT NULL,
+    exercicio_id BIGINT NOT NULL,
 	CONSTRAINT fk_treinoDia_treino FOREIGN KEY (treino_id) references treino(id),
     CONSTRAINT fk_treinoDia_exercicio FOREIGN KEY (exercicio_id) references exercicio(id),
     ordem_treino INT NOT NULL,
@@ -81,6 +90,8 @@ CREATE TABLE IF NOT EXISTS treino_dia(
 );
 CREATE TABLE IF NOT EXISTS treino_exercicio(
 	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    treino_dia_id BIGINT NOT NULL,
+    exercicio_id BIGINT NOT NULL,
     CONSTRAINT fk_treinoExercicio_treinoDia FOREIGN KEY (treino_dia_id) references treino_dia(id),
     CONSTRAINT fk_treinoExercicio_exercicio FOREIGN KEY (exercicio_id) references exercicio(id),
     ordem INT NOT NULL,
