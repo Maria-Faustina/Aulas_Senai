@@ -1,0 +1,42 @@
+CREATE database IF NOT EXISTS loja_FelipeMoveis;
+
+CREATE TABLE IF NOT EXISTS cliente(
+	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL
+);
+CREATE TABLE IF NOT EXISTS cargo(
+	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    cargo VARCHAR(50) NOT NULL
+);
+CREATE TABLE IF NOT EXISTS produto(
+	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(50) NOT NULL,
+    valor FLOAT NOT NULL
+);
+CREATE TABLE IF NOT EXISTS funcionario(
+	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    cargo_id BIGINT NOT NULL,
+    CONSTRAINT 	fk_funcionario_cargo FOREIGN KEY (cargo_id) references cargo(id),
+    nome VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS venda(
+	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    cliente_id BIGINT NOT NULL,
+    funcionario_id BIGINT NOT NULL,
+    CONSTRAINT fk_funcionario_cliente FOREIGN KEY(funcionario_id) references funcionario(id),
+    CONSTRAINT fk_cliente_venda FOREIGN KEY(cliente_id) references cliente(id),
+    venda_data DATE NOT NULL
+    
+);
+CREATE TABLE IF NOT EXISTS item_venda(
+	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    venda_id BIGINT NOT NULL,
+    produto_id BIGINT NOT NULL,
+    CONSTRAINT fk_venda_item FOREIGN KEY(venda_id) references venda(id),
+    CONSTRAINT fk_produto_item FOREIGN KEY(produto_id) references produto(id),
+	quantidade 	INT NOT NULL,
+    preco_unitario FLOAT NOT NULL,
+    preco_pago FLOAT NOT NULL,
+    desconto FLOAT NOT NULL
+);
