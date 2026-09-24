@@ -1,0 +1,55 @@
+import pygame
+import serial
+import time
+
+arduino = serial.Serial('COM3',9600, timeout=0.1)
+time.sleep(2)
+
+pygame.init()
+screen = pygame.display.set_mode((800, 600))
+
+clock = pygame.time.Clock()
+
+player_x, player_y = 400, 300
+running = True
+
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    try: 
+        if arduino.in_waiting > 0:
+
+            line = arduino.readline().decode('utf-8').strip()
+            if line:
+                parts = line.split()
+                if len(parts) == 3:
+
+                    js_x  = int(parts[0])
+                    js_y = int(parts[1])
+                    js_sw = int(parts[2])
+        deadzone = 50
+        speed = 5
+
+        if abs(js_x - 512) > deadzone:
+            if js_x > 512: player_x += speed
+            else: player_x -= speed
+        if abs(js_y - 512) > deadzone:
+            if js_y > 512: player_y += speed
+            else: player_y -= speed
+
+        player_x = max(0, min (800,player_x))
+        player_y = max(0, min (600,player_y))
+
+    except Exception as e:
+         print(f"Erro na Serial: {e}")
+
+    screen.fill((0,0,0))
+    pygame.draw.rect(screen, (0,255,0), (player_x, player_y, 50,50))
+    pygame.display.flip()
+
+    clock.tick(60)
+
+arduino.close()
+pygame.quit()
