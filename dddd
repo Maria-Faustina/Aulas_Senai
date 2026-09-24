@@ -1,0 +1,29 @@
+  const int pinX = A0;
+  const int pinY = A1;
+  const int pinSW = 2;
+
+void setup() {
+  Serial.begin(9600);
+
+  // usamos o PULLUP para ativar o resitor de pull-up interno do arduino
+  pinMode(pinSW, INPUT_PULLUP);
+
+}
+
+void loop() {
+  
+  int xVAL = analogRead(pinX);
+  int yVAL = analogRead(pinY);
+  int swVal = digitalRead(pinSW);
+
+
+  Serial.print(xVAL);
+  Serial.print(" ");
+  Serial.print(yVAL);
+  Serial.print(" ");
+  Serial.println(swVal);
+
+  delay(20);
+  
+
+}
