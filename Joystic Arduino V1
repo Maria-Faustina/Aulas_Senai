@@ -1,0 +1,34 @@
+  const int pinoX = A0;
+  const int pinoY = A1;
+  const int pinBotao = 2;
+
+void setup() {
+  Serial.begin(9600);
+
+  // usamos o PULLUP para ativar o resitor de pull-up interno do arduino
+  pinMode(pinBotao, INPUT_PULLUP);
+
+}
+
+void loop() {
+  
+  int valorX = analogRead(pinoX);
+  int valorY = analogRead(pinoY);
+
+  int estadoBotao = digitalRead(pinBotao);
+
+  Serial.print("X: ");
+  Serial.print(valorX);
+  Serial.print(" | Y:");
+  Serial.print(valorY);
+  Serial.print(" | Botao:");
+
+  if(estadoBotao == LOW){
+    Serial.println("Pressionando");
+  }else{
+    Serial.println("Solto");
+  }
+  delay(100);
+  
+
+}
